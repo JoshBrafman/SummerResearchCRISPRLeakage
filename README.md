@@ -6,10 +6,13 @@ In a similar vein, if there was leakage between the data used to train and test 
 
 The purpose of my study is to determine the correlation between train-test leakage and the performance of off-target prediction models, if it exists, and to offer strategies to minimize this risk so a more realistic evaluation of these models can be performed.
 
-To analyze this issue, I partitioned a popular off-target dataset into training and test sets in 680 different ways. For each of these train-test splits, I calculated the leakage between the two sets using seven different metrics. This is done in **compute_leakages.py** The metrics included various way of evaluating the similarity between the guide RNA sequences across the split, as well as calculating the percentage of target locations (regions on the genome where off-target editing may have occurred) in the test set that physically overlapped with a target location in the training set.
+To analyze this issue, I partitioned a popular off-target dataset into training and test sets in 680 different ways. For each of these train-test splits, I calculated the leakage between the two sets using seven different metrics. This was done in **compute_leakages.py** The metrics included various way of evaluating the similarity between the guide RNA sequences across the split, as well as calculating the percentage of target locations (regions on the genome where off-target editing may have occurred) in the test set that physically overlapped with a target location in the training set.
 
-In addition to calculating the leakage, for each train-test split I trained a Random-Forest, Logistic-Regression, and XGBoost model (machine-learning types). I evaluated these models using AUROC, which is a common metric to evaluate binary classification, because the models were trained to classify between experimental off-targets (positives) and potential off-targets (negatives) that were found in the genome. 
+In addition to calculating the leakage, for each train-test split I trained a Random-Forest, Logistic-Regression, and XGBoost model (machine-learning types). I evaluated these models using AUROC, which is a common metric to evaluate binary classification, because the models were trained to classify between experimental off-targets (positives) and potential off-targets (negatives) that were found in the genome. This was done in **AUROCscores.py**
+
 Finally, I calculated the correlation between the train-test leakage and model performance for each leakage metric and machine learning model across the 680 different partitions. 
+
+
 
 
 
