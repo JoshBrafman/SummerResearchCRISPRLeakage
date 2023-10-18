@@ -10,7 +10,15 @@ To analyze this issue, I partitioned a popular off-target dataset into training 
 
 In addition to calculating the leakage, for each train-test split I trained a Random-Forest, Logistic-Regression, and XGBoost model (machine-learning types). I evaluated these models using AUROC, which is a common metric to evaluate binary classification, because the models were trained to classify between experimental off-targets (positives) and potential off-targets (negatives) that were found in the genome. This was done in **AUROCscores.py**
 
-Finally, I calculated the correlation between the train-test leakage and model performance for each leakage metric and machine learning model across the 680 different partitions. 
+Finally, I calculated the correlation between the train-test leakage and model performance for each leakage metric and machine learning model across the 680 different partitions. The results can be seen in the "**Correlation with Performance by Leakage and Model Type**" file.
+
+An analysis of the results reveals that the two metrics for calculating leakage over the training guide RNAs, which were used in a previous study, did not yield a significant correlation to model performance. The new leakage metrics, which I defined in this study, resulted in a statistically significant correlation between train-test leakage and model performance. Moreover, calculating leakage in terms of overlapping target coordinates yielded the highest correlation for all machine-learning models evaluated in this study. 
+
+This analysis indicates that eliminating target overlap is the most effective approach to reduce train-test leakage. Therefore, to address this issue I proposed implementing chromosomal partitioning of the off-target sites. The off-target sites should be partitioned in a way that no target in the training set shares a chromosome with any target in the test set. This approach eliminates target overlap—if no pair of targets from the two sets appear on the same chromosome, then no pair of targets can overlap. My initial results from applying this method suggests that it is an effective way to reduce train-test leakage because both the average AUROC score of the models and the correlation between leakage and model performance decreased significantly. However, further analysis of these results is required and is still ongoing.
+
+Thank you to Professor Yaron Orenstein for advising me during my research! 
+
+
 
 
 
